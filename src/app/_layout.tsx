@@ -1,18 +1,61 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Stack } from "expo-router";
+import { StyleSheet, Text, View } from "react-native";
+import { PaperProvider } from "react-native-paper";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <PaperProvider>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <Stack
+            screenOptions={{
+              headerStyle: { backgroundColor: "#172b4d" },
+              headerTintColor: "#ffffff",
+              headerTitleStyle: { fontWeight: "bold" },
+              contentStyle: { backgroundColor: "#f4f7fc" },
+            }}
+          >
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="login" options={{ title: "Login" }} />
+            <Stack.Screen
+              name="registration"
+              options={{ title: "Registration" }}
+            />
+            <Stack.Screen
+              name="home"
+              options={{ title: "Daily Task Manager" }}
+            />
+            <Stack.Screen name="about" options={{ title: "About" }} />
+            <Stack.Screen
+              name="users"
+              options={{ title: "Registered Users" }}
+            />
+          </Stack>
+        </View>
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Developed by Amna Fuad | 2026</Text>
+        </View>
+      </View>
+    </PaperProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#172b4d",
+  },
+  content: {
+    flex: 1,
+  },
+  footer: {
+    backgroundColor: "#172b4d",
+    padding: 14,
+    alignItems: "center",
+  },
+  footerText: {
+    color: "#ffffff",
+    fontSize: 13,
+  },
+});
